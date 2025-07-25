@@ -20,7 +20,7 @@ func main() {
 	// Parse command line flags
 	mongoURI := flag.String("mongo-uri", "mongodb://localhost:27017", "MongoDB connection URI")
 	dbName := flag.String("db-name", "agent_metrics", "MongoDB database name")
-	port := flag.String("port", "8080", "HTTP server port")
+	port := flag.String("port", "9999", "HTTP server port")
 	flag.Parse()
 
 	// Connect to MongoDB
@@ -32,15 +32,18 @@ func main() {
 
 	// Create repositories
 	agentRepo := db.NewAgentRepository(mongodb)
+	uiRepo := db.NewUIRepository(mongodb)
 
 	// Create handlers
 	agentHandler := handlers.NewAgentHandler(agentRepo)
+	uiHandler := handlers.NewUIHandler(uiRepo)
 
 	// Create router
 	router := mux.NewRouter()
 
 	// Register routes
 	agentHandler.RegisterRoutes(router)
+	uiHandler.RegisterRoutes(router)
 
 	// Create server
 	srv := &http.Server{

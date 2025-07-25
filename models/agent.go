@@ -21,6 +21,7 @@ type AgentVersion struct {
 	AgentID    primitive.ObjectID `json:"agent_id" bson:"agent_id"`
 	Version    string             `json:"version" bson:"version"`
 	Cluster    string             `json:"cluster" bson:"cluster"`
+	Status     string             `json:"status" bson:"status"`
 	Tools      []string           `json:"tools" bson:"tools"`
 	Models     []string           `json:"models" bson:"models"`
 	Deployment string             `json:"deployment" bson:"deployment"`
@@ -36,7 +37,7 @@ type AgentRun struct {
 	Version    string             `json:"version" bson:"version"`
 	Created    time.Time          `json:"created" bson:"created"`
 	Status     string             `json:"status" bson:"status"`
-	TimeTaken  string             `json:"time_taken" bson:"time_taken"`
+	TimeTaken  float64            `json:"time_taken" bson:"time_taken"`
 	Initiator  string             `json:"initiator" bson:"initiator"`
 	Tools      []string           `json:"tools" bson:"tools"`
 	Cost       float64            `json:"cost" bson:"cost"`
@@ -67,7 +68,7 @@ type RegisterAgentVersionRequest struct {
 type RegisterAgentRunRequest struct {
 	Created   string   `json:"created"`
 	Status    string   `json:"status"`
-	TimeTaken string   `json:"time_taken"`
+	TimeTaken float64  `json:"time_taken"`
 	Initiator string   `json:"initiator"`
 	Tools     []string `json:"tools"`
 	Cost      float64  `json:"cost"`
